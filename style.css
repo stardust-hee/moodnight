@@ -1,0 +1,407 @@
+/* 기본 초기화 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+
+body { font-family: 'Pretendard', sans-serif; line-height: 1.6; color: #333; }
+a { text-decoration: none; color: inherit; }
+
+section {
+    scroll-margin-top: 80px; /* 네비게이션 바에 가려지지 않게 해줍니다 */
+}
+
+/* 네비게이션 */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.nav-left { flex: 1; } /* 왼쪽 균형용 */
+
+.logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.logo img {
+    height: 30px; /* 로고 크기 조절 */
+    width: auto;
+}
+
+.nav-menu {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #111;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #4433ff;
+}
+
+/* 모바일에서도 메뉴가 사라지지 않고 작게 보이도록 유지 */
+@media (max-width: 768px) {
+    .nav-menu { gap: 15px; }
+    .nav-menu a { font-size: 10px; }
+    .logo img { height: 25px; }
+}
+
+/* 히로 섹션 */
+#hero {
+    position: relative;
+    height: 100vh; /* 화면을 꽉 채우도록 변경 */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+
+/* 동영상 스타일: 배경으로 꽉 채우기 */
+.back-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 영상 비율을 유지하며 꽉 채움 */
+    z-index: -1; /* 텍스트보다 뒤로 가게 설정 */
+}
+
+/* 동영상 위 텍스트 가독성을 위한 설정 */
+.hero-content {
+    color: #fff; /* 배경이 어두울 경우 대비를 위해 흰색 권장 */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+/* 프로젝트 그리드 */
+#work { padding: 5rem 5%; }
+.grid {
+    display: grid;
+    /* 1fr(비율)을 3번 반복하여 한 줄에 3개를 고정합니다 */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 2rem; /* 카드 사이의 간격 */
+}
+.project-card { cursor: pointer; transition: transform 0.3s ease; 
+text-decoration: none; /* 밑줄 제거 */
+    color: inherit;        /* 부모 텍스트 색상 유지 */
+    display: block;       /* 카드 전체가 클릭 가능하도록 설정 */
+    cursor: pointer; 
+    transition: transform 0.3s ease;}
+.project-card:hover { transform: translateY(-10px); }
+
+.image-box {
+background: #f0f0f0;
+    aspect-ratio: 16 / 10;
+    overflow: hidden; /* 이미지가 박스 밖으로 나가지 않게 함 */
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 박스 비율에 맞춰 꽉 차게 조절 */
+    transition: transform 0.4s ease; /* 마우스 올렸을 때 애니메이션 */
+}
+
+/* 마우스 올리면 이미지가 살짝 커지는 효과 */
+.project-card:hover .image-box img {
+    transform: scale(1.05);
+}
+
+/* About 섹션 전체 컨테이너 */
+#about {
+    padding: 100px 10%;
+    background-color: #fff;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 상단 프로필 영역 */
+.about-main {
+    display: flex;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.about-image img {
+    width: 350px; /* 이미지 크기 조절 */
+    border-radius: 20px;
+}
+
+.about-text h2 { font-size: 2.5rem; margin-bottom: 10px; color: #111; }
+.name-en { font-family: 'cursive'; font-size: 1.8rem; color: #4433ff; margin-bottom: 20px; }
+.intro-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; }
+.intro-desc p { margin-bottom: 15px; color: #666; font-size: 1rem; }
+
+.btn-more {
+    display: inline-block;
+    margin-top: 20px;
+    color: #79a1ec;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* 하단 상세 정보 영역 */
+.about-detail {
+    display: flex;
+    gap: 60px;
+    border-top: 1px solid #eee;
+    padding-top: 50px;
+}
+
+.detail-column { flex: 1; }
+.detail-column h3 { font-size: 1.5rem; margin-bottom: 25px; color: #111; }
+.detail-column ul { list-style: none; }
+.detail-column li { margin-bottom: 15px; font-size: 0.95rem; color: #333; }
+.detail-column li span { 
+    display: inline-block; 
+    width: 150px; 
+    color: #888; 
+    font-weight: 500;
+}
+
+/* Skills 섹션 정갈한 스타일 */
+.skill-icons {
+    display: flex;
+    gap: 25px; /* 아이콘 사이 간격 */
+    margin-top: 15px;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-item img {
+    width: 35px; /* 이나님이 원하셨던 작고 정갈한 크기 */
+    height: 35px;
+    object-fit: contain;
+    filter: grayscale(100%); /* 기본은 무채색으로 차분하게 */
+    opacity: 0.6;
+    transition: 0.3s ease;
+}
+
+.skill-item span {
+    font-size: 10px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 마우스 올렸을 때만 컬러로 강조 */
+.skill-item:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: translateY(-3px); /* 살짝 위로 올라가는 효과 */
+}
+
+.skill-item:hover span {
+    color: #333;
+}
+
+/* 프로젝트 상세 페이지 스타일 */
+.project-detail {
+    padding-top: 100px; /* 네비게이션 공간 확보 */
+}
+
+.project-hero {
+    text-align: center;
+    padding: 100px 5%;
+    background: #f9f9f9;
+}
+
+.project-hero h1 { font-size: 3rem; margin-bottom: 10px; }
+.category { color: #888; font-size: 1.1rem; }
+
+.project-info {
+    display: flex;
+    gap: 50px;
+    padding: 80px 10%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.info-item { flex: 1; }
+.info-item h3 { border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+
+/* 이미지 나열 스타일 */
+.project-images { padding: 50px 5%; }
+.project-images div { margin-bottom: 50px; }
+.project-images img { width: 100%; border-radius: 8px; display: block; }
+
+/* 2단 이미지 그리드 */
+.grid-img {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.back-to-home {
+    text-align: center;
+    padding: 80px 0;
+}
+
+.back-to-home a {
+    font-weight: bold;
+    color: #a1a3a1;
+    text-decoration: underline;
+}
+
+#back-to-top {
+    display: none; /* 처음에는 숨김 */
+    position: fixed; /* 화면에 고정 */
+    bottom: 30px; /* 바닥에서 30px */
+    right: 30px; /* 오른쪽에서 30px */
+    z-index: 1000; /* 다른 요소보다 확실히 위에 표시 */
+    border: none;
+    outline: none;
+    background-color: #6b3a3a; /* 이나님의 브랜드 컬러 */
+    color: white;
+    cursor: pointer;
+    
+    /* 크기 및 모양 */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* 동그란 모양 */
+    
+    /* 중앙 정렬 핵심 (기존 padding: 15px 제거) */
+    display: flex;
+    justify-content: center; /* 가로 중앙 */
+    align-items: center;     /* 세로 중앙 */
+    padding: 0;             /* 패딩 제거가 중요합니다! */
+    padding-bottom: 4px;    /* 시각적으로 조금 더 위로 올리고 싶을 때 미세 조정 */
+    
+    font-size: 25px;
+    transition: 0.3s; /* 부드러운 변화 */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#back-to-top:hover {
+    background-color: #8f8f8f; /* 호버 시 색상 변경 */
+    transform: translateY(-5px); /* 살짝 떠오르는 효과 */
+}
+
+/* Contact 섹션 스타일 */
+#contact {
+    padding: 150px 10%;
+    text-align: center;
+    background-color: #fff;
+}
+
+.contact-container h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.email-link {
+    display: block;
+    font-size: 4rem; /* 큼직한 이메일 폰트 */
+    font-weight: 800;
+    color: #111;
+    text-decoration: none;
+    margin-bottom: 30px;
+    transition: color 0.3s;
+}
+
+.email-link:hover {
+    color: #4433ff; /* 포인트 컬러로 변경 */
+}
+
+#contact p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.btn-mail {
+    display: inline-block;
+    color: #4433ff;
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 1px solid #4433ff;
+    padding-bottom: 5px;
+}
+
+/* Footer 스타일 */
+footer {
+    padding: 50px 10%;
+    border-top: 1px solid #eee;
+    background-color: #fff;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    color: #999;
+}
+
+.footer-links a {
+    font-size: 0.8rem;
+    color: #666;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 600;
+}
+
+.footer-links a:hover {
+    color: #111;
+}
+
+/* 모바일 화면을 위한 반응형 설정 (선택 사항) */
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr); /* 태블릿에서는 2개 */
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr; /* 모바일에서는 1개 */
+    }
+}
