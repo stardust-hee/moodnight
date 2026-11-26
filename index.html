@@ -55,6 +55,7 @@ h1 .dot{color:var(--accent)}
 .sec-head h2 sup{font:400 .26em/1 var(--sans);color:var(--mute);margin-left:10px;vertical-align:top;letter-spacing:0;position:relative;top:.4em}
 .sec-head p{margin:0;font-size:14.5px;color:var(--mute);max-width:22em}
 .tabs{display:flex;flex-wrap:wrap;gap:6px 26px;margin:0 0 48px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.sortbar{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:13px;color:var(--mute)} .sortbar em{font-style:normal;font-size:11px;letter-spacing:.08em;opacity:.7} .sort-button{font-size:13px;color:var(--mute);padding:4px 0;transition:color .3s} .sort-button:hover{color:var(--ink)} .sort-button.active{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:5px} @media(max-width:640px){.sortbar{margin-left:0;width:100%;margin-top:6px}}
 .filter-button{font-size:15px;color:var(--mute);position:relative;transition:color .3s;padding:4px 0}
 .filter-button span{font-size:11px;vertical-align:top;margin-left:4px;color:var(--mute)}
 .filter-button:hover{color:var(--ink)}
@@ -268,6 +269,25 @@ const NUMPFX=window.__numPrefix||'';
   });
   tabs.appendChild(b);
  });
+ /* ---- 정렬: 기본순 / 최신순 / 분야순 ---- */
+ const CAT_ORDER=['Web','Branding','Print','Brand Content','Detail Page','Web Banner'];
+ const yr=p=>{const m=(p.year||'').match(/\d{4}/g);return m?Math.max(...m.map(Number)):0;};
+ const idx=new Map(projects.map((p,i)=>[p.id,i]));
+ const cmp={
+  default:(a,b)=>idx.get(a.id)-idx.get(b.id),
+  latest:(a,b)=>yr(b)-yr(a)||idx.get(a.id)-idx.get(b.id),
+  category:(a,b)=>(CAT_ORDER.indexOf(a.cat)+1||99)-(CAT_ORDER.indexOf(b.cat)+1||99)||yr(b)-yr(a)||idx.get(a.id)-idx.get(b.id)
+ };
+ const sb=mk('div','sortbar');sb.setAttribute('role','group');sb.setAttribute('aria-label','정렬');sb.append(mk('em',null,'정렬'));
+ [['default','기본순'],['latest','최신순'],['category','분야순']].forEach(([k,label],i)=>{
+  const t=mk('button','sort-button'+(i===0?' active':''),label);t.type='button';t.setAttribute('aria-pressed',i===0?'true':'false');
+  t.addEventListener('click',()=>{
+   sb.querySelectorAll('.sort-button').forEach(x=>{x.classList.toggle('active',x===t);x.setAttribute('aria-pressed',x===t?'true':'false')});
+   [...projects].sort(cmp[k]).forEach(p=>{const c=grid.querySelector('[data-id="'+p.id+'"]');if(c)grid.appendChild(c);});
+  });
+  sb.appendChild(t);
+ });
+ tabs.appendChild(sb);
 })();
 
 /* ---- 모달 ---- */
